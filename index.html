@@ -11,7 +11,7 @@
 		  }
 		  .outsideWrapper {
 			  width:444px;
-			  height:596px;
+			  height:515px;
 			  margin:20px 60px;
 			  border:1px solid blue;
 		  }
@@ -43,8 +43,8 @@
 	<body>
 		<div class="outsideWrapper">
 			<div class="insideWrapper">
-				<img src="http://pngimg.com/upload/hands_PNG905.png" class="coveredImage">
-				<canvas id="coveringCanvas" class="coveringCanvas" width=444px height=596px ></canvas>
+				<img src="hands.png" class="coveredImage">
+				<canvas id="coveringCanvas" class="coveringCanvas" width=444px height=515px ></canvas>
 			</div>
 			<div class="buttonDiv">
 			  <button onclick="showNumbersSlow()" class="btn btn-primary"> Show Numbers (Slow) </button>
@@ -128,6 +128,12 @@
 				setTimeout(
 						  function(){
 							ctx.fillText(number,x,y);
+							ctx.font = "80px Verdana";
+							ctx.fillStyle = 'blue'
+							ctx.clearRect(122,315,202,415)
+							ctx.fillText(multiplier, 162, 375);
+							ctx.fillStyle = 'black'
+							ctx.font = "20px Verdana";
 						  }, interval*multiplier*1000
 						);
 			  }

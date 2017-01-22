@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Add Numbers</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			body {
+			  background-color: ivory;
+		  }
+		  .outsideWrapper {
+			  width:444px;
+			  height:596px;
+			  margin:20px 60px;
+			  border:1px solid blue;
+		  }
+		  .insideWrapper {
+			  width:100%;
+			  height:100%;
+			  position:relative;
+			  margin-bottom: 10px;
+		  }
+		  .coveredImage {
+			  width:100%;
+			  height:100%;
+			  position:absolute;
+			  top:0px;
+			  left:0px;
+		  }
+		  .coveringCanvas {
+			  width:100%;
+			  height:100%;
+			  position:absolute;
+			  top:0px;
+			  left:0px;
+			  background-color: rgba(255, 0, 0, .1);
+		  }
+		  .inputDiv{ margin-top:10px;}
+		  .inputDiv td {padding:5px}
+		</style>
+	</head>
+	<body>
+		<div class="outsideWrapper">
+			<div class="insideWrapper">
+				<img src="http://pngimg.com/upload/hands_PNG905.png" class="coveredImage">
+				<canvas id="coveringCanvas" class="coveringCanvas" width=444px height=596px ></canvas>
+			</div>
+			<div class="buttonDiv">
+			  <button onclick="showNumbersSlow()" class="btn btn-primary"> Show Numbers (Slow) </button>
+			  <button onclick="showNumbers()" class="btn btn-primary" > Show Numbers</button>
+			</div>
+			<div class=inputDiv>
+			<table>
+			<tr>
+			  <td>
+				<input id="firstNumber" class="form-control" type=number style="width:60px" />
+			  </td>
+			  <td>
+				+
+			  </td>
+			  <td>
+				<input  id="secondNumber" class="form-control" type=number style="width:60px" />
+			  </td>
+			  <td>
+				=
+			  </td>
+			  <td>
+				<label id="resultNumber" class="form-control" style="width:60px"></label>
+			  </td>
+			  <td >
+				<button onclick="addAnimate()" class="btn btn-success" > Add</button>
+			  </td>
+			</tr>
+			
+			</table>
+			   
+			</div>
+		</div>
+		<script>
+			window.onload = function()
+			{
+				var c = document.getElementById("coveringCanvas");
+				window.ctx = c.getContext("2d");
+				window.ctx.font = "20px Verdana";
+			}
+			window.x = [272,272,262,182,182,186,102,117,120,29,41,60,382,352,322];
+			window.y = [100,150,220,80,140,220,100,160,230,175,220,275,260,330,375];
+			function showNumbersSlow()
+			{
+				drawNumbers(window.ctx, 1);
+			  
+			}
+			function showNumbers()
+			{
+				drawNumbers(window.ctx, .01);
+			  
+			}
+			function drawNumbers(ctx, interval)
+			{
+				ctx.clearRect(0,0,444,596);
+				drawANumber(ctx,interval,"1",x[0],y[0]);
+			  drawANumber(ctx,interval,"2",x[1],y[1]);
+			  drawANumber(ctx,interval,"3",x[2],y[2]);
+			  drawANumber(ctx,interval,"4",x[3],y[3]);
+			  drawANumber(ctx,interval,"5",x[4],y[4]);
+			  drawANumber(ctx,interval,"6",x[5],y[5]);
+			  drawANumber(ctx,interval,"7",x[6],y[6]);
+			  drawANumber(ctx,interval,"8",x[7],y[7]);
+			  drawANumber(ctx,interval,"9",x[8],y[8]);
+			  drawANumber(ctx,interval,"10",x[9],y[9]);
+			  drawANumber(ctx,interval,"11",x[10],y[10]);
+			  drawANumber(ctx,interval,"12",x[11],y[11]);
+			  drawANumber(ctx,interval,"13",x[12],y[12]);
+			  drawANumber(ctx,interval,"14",x[13],y[13]);
+			  drawANumber(ctx,interval,"15",x[14],y[14]);
+			}
+			  function drawANumber(ctx,interval,number,x,y)
+			  {
+				setTimeout(
+						  function(){
+							ctx.fillText(number,x,y);
+						  }, interval*number*1000
+						);
+			  }
+			  function drawANumber2(ctx,interval,multiplier,number,x,y)
+			  {
+				setTimeout(
+						  function(){
+							ctx.fillText(number,x,y);
+						  }, interval*multiplier*1000
+						);
+			  }
+			  function addAnimate()
+			  {
+				document.getElementById("resultNumber").innerHTML = "";
+				var firstNumber = document.getElementById("firstNumber").value;
+				var secondNumber = document.getElementById("secondNumber").value;
+				if(!isNaN(firstNumber) && !isNaN(secondNumber))
+				{
+					if(parseInt(firstNumber) + parseInt(secondNumber) > 15)
+				  {
+					alert("Sum should be less than or equal to 15.")
+				  }
+				  else
+				  {
+					ctx.clearRect(0,0,444,596);
+					
+					var resultNumber = parseInt(firstNumber) + parseInt(secondNumber);
+					for(var i=1; i<=parseInt(firstNumber);i++ )
+					{
+					  drawANumber(ctx,.01,i,x[i-1],y[i-1]);
+					}
+					ctx.beginPath();
+					ctx.moveTo(x[parseInt(firstNumber)-1]+8+18,y[parseInt(firstNumber)-1]-5);
+					ctx.arc(x[parseInt(firstNumber)-1]+8,y[parseInt(firstNumber)-1]-5,18,0,2*Math.PI);
+					ctx.stroke();
+					for(var j=parseInt(firstNumber)+1; j<=resultNumber;j++ )
+					{
+					  drawANumber2(ctx,1,j-parseInt(firstNumber),j,x[j-1],y[j-1]);
+					}
+					setTimeout(
+						  function(){
+							ctx.moveTo(x[resultNumber-1]+8+18,y[resultNumber-1]-5);
+							ctx.arc(x[resultNumber-1]+8,y[resultNumber-1]-5,18,0,2*Math.PI);
+							ctx.stroke();
+							ctx.closePath();
+							document.getElementById("resultNumber").innerHTML = parseInt(firstNumber) + parseInt(secondNumber);
+						  }, parseInt(secondNumber)*1000
+						);
+					
+					}
+				}
+				
+			  }
+			</script>
+
+	</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -10,10 +10,11 @@
 			  background-color: ivory;
 		  }
 		  .outsideWrapper {
-			  width:444px;
+			  width:610px;
 			  height:515px;
-			  margin:10px 30px;
+			  margin:10px 10px;
 			  border:1px solid blue;
+              float:left;
 		  }
 		  .insideWrapper {
 			  width:100%;
@@ -36,59 +37,312 @@
 			  left:0px;
 			  background-color: rgba(255, 0, 0, .1);
 		  }
-		  .inputDiv{ margin-top:0px;}
+		  .inputDiv{ margin-left:485px; padding-top:10px;}
 		  .inputDiv td {padding-top:2px; padding-right:3px;}
+            #firstNumber {
+                background-color:darkcyan; color:aliceblue;
+            }
+            #secondNumber {
+                background-color:crimson; color:aliceblue;
+            }
+
+            fieldset.start-with,fieldset.add-with {
+                border: 1px groove #ddd !important;
+                padding: 2px !important;
+                margin: 1px !important;
+                -webkit-box-shadow:  0px 0px 0px 0px #000;
+                box-shadow:  0px 0px 0px 0px #000;
+            }
+            fieldset.start-with .btn {
+                
+                padding-left:18px;
+                padding-right:18px;
+            }
+            legend.start-with, legend.add-with {
+                font-size: 1.2em !important;
+                font-weight: bold !important;
+                text-align: center !important;
+                width:auto;
+                padding:0 2px;
+                border-bottom:none;
+            }
 		</style>
 	</head>
 	<body>
 		<div class="outsideWrapper">
 			<div class="insideWrapper">
 				<img src="hands.png" class="coveredImage">
-				<canvas id="coveringCanvas" class="coveringCanvas" width=444px height=515px ></canvas>
+				<canvas id="coveringCanvas" class="coveringCanvas" width=1220 height=1030 ></canvas>
+                
 			</div>
-			<div class="buttonDiv">
-			  <button onclick="showNumbersSlow()" class="btn btn-primary"> Show Numbers (Slow) </button>
-			  <button onclick="showNumbers()" class="btn btn-primary" > Show Numbers</button>
-			</div>
-			<div class=inputDiv>
-			<table>
-			<tr>
-			  <td>
-				<input id="firstNumber" class="form-control" type=number style="width:60px" />
-			  </td>
-			  <td>
-				+
-			  </td>
-			  <td>
-				<input  id="secondNumber" class="form-control" type=number style="width:60px" />
-			  </td>
-			  <td>
-				=
-			  </td>
-			  <td>
-				<label id="resultNumber" class="form-control" style="width:60px"></label>
-			  </td>
-			  <td >
-				<button onclick="addAnimate()" class="btn btn-success" > Add</button>
-			  </td>
-			</tr>
-			
-			</table>
-			   
-			</div>
+            <div class="buttonDiv">
+                <button onclick="showNumbersSlow()" class="btn btn-primary"> Show Numbers (Slow) </button>
+                <button onclick="showNumbers()" class="btn btn-primary"> Show Numbers</button>
+            </div>
+            <div class="buttonDiv">
+                <fieldset class="start-with">
+                    <legend class="start-with">Start With</legend>
+                    <div class="btn-group">
+                        <button type="button" onclick="startWithNumber(1)" class="btn btn-info">1</button>
+                        <button type="button" onclick="startWithNumber(2)" class="btn btn-info">2</button>
+                        <button type="button" onclick="startWithNumber(3)" class="btn btn-info">3</button>
+                        <button type="button" onclick="startWithNumber(4)" class="btn btn-info">4</button>
+                        <button type="button" onclick="startWithNumber(5)" class="btn btn-info">5</button>
+                        <button type="button" onclick="startWithNumber(6)" class="btn btn-info">6</button>
+                        <button type="button" onclick="startWithNumber(7)" class="btn btn-info">7</button>
+                        <button type="button" onclick="startWithNumber(8)" class="btn btn-info">8</button>
+                        <button type="button" onclick="startWithNumber(9)" class="btn btn-info">9</button>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="buttonDiv">
+                <fieldset class="add-with">
+                    <legend class="add-with">Addition Facts</legend>
+                    <div class="btn-group" id="add-facts">
+                        
+                    </div>
+                </fieldset>
+            </div>
 		</div>
+        <!--
+        <div class=inputDiv>
+            <table>
+                <tr>
+                    <td>
+                        <input id="firstNumber" class="form-control" type=number style="width:60px" />
+                    </td>
+                    <td>
+                        +
+                    </td>
+                    <td>
+                        <input id="secondNumber" class="form-control" type=number style="width:60px" />
+                    </td>
+                    <td>
+                        =
+                    </td>
+                    <td>
+                        <label id="resultNumber" class="form-control" style="width:60px"></label>
+                    </td>
+                    <td>
+                        <button onclick="addAnimate()" class="btn btn-success"> Add</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+            -->
 		<script>
 			window.onload = function()
 			{
 				var c = document.getElementById("coveringCanvas");
 				window.ctx = c.getContext("2d");
-				window.ctx.font = "20px Verdana";
+				window.ctx.font = "30px Verdana";
+
+				var fNumber = document.getElementById("firstNumber");
+				var sNumber = document.getElementById("secondNumber");
+
+
 			}
-			window.x = [272,272,262,182,182,186,102,117,120,29,41,60,382,352,322];
-			window.y = [100,150,220,80,140,220,100,160,230,175,220,275,260,330,375];
+			window.x = [500,490,480,    330,330,340,    185,200,230,    65,85,120,       710,650,600];
+			window.y = [200, 330, 480, 180, 300, 450, 220, 340, 500, 370, 460, 590, 570, 660, 720];
+			window.timeouts = [];
+			window.originX = [], window.originY = [], window.targetX = [], window.targetY = [];
+			_cx1 = 910, _cx2 = 1030, window._color = [], window._color[0] = "darkcyan", window._color[1] = "crimson"; window.cx = [], window.cy = [], window._baseInterval = 1, window._speed = 1.5;
+			cx[0] = [_cx1, _cx1, _cx1, _cx1, _cx1, _cx1, _cx1, _cx1, _cx1];
+			cx[1] = [_cx2, _cx2, _cx2, _cx2, _cx2, _cx2, _cx2, _cx2, _cx2];
+			cy[0] = [150, 200, 250, 300, 350, 400, 450, 500, 550];
+			cy[1] = [150, 200, 250, 300, 350, 400, 450, 500, 550];
+			function startWithNumber(s)
+			{
+			    window.startWith = s;
+			    var addFacts = document.getElementById("add-facts");
+			    addFacts.innerHTML = "";
+			    for (var i = 1; i <= 9; i++)
+			    {
+			        if (window.startWith + i < 16)
+			        {
+			            var button = document.createElement('button');
+			            button.innerHTML = window.startWith + '+' + i;
+			            button.className += " btn btn-info";
+			            button.setAttribute("data-val", i);
+			            button.onclick = function () {
+			                window.endWith = this.getAttribute("data-val");
+			                showFact();
+			                return false;
+			            };
+			            addFacts.appendChild(button);
+			        }
+			    }
+			}
+			function showFact()
+			{
+			    var addFacts = document.getElementById("add-facts");
+			    var existingButton = document.getElementById("add-now-btn");
+			    if (existingButton)
+			    {
+			        addFacts.removeChild(existingButton);
+			    }
+			    ctx.clearRect(0, 0, 1220, 1030);
+			    ctx.font = "80px Verdana";
+			    ctx.fillStyle = "black";
+			    ctx.fillText('+', 930, 100);
+			    ctx.fillText('=', 1055, 100);
+			    ctx.fillStyle = window._color[0];
+			    ctx.fillText(window.startWith, 880, 100);
+			    ctx.fillStyle = window._color[1];
+			    ctx.fillText(window.endWith, 1000, 100);
+			    for (var j = 0; j < window.startWith; j++)
+			    {
+			        drawCircle(0, j, _baseInterval);
+			    }
+			    for (var j = 0; j < window.endWith; j++) {
+			        drawCircle(1, j, _baseInterval);
+			    }
+			    
+			    var button = document.createElement('button');
+			    button.innerHTML = "Add Now";
+			    button.className += " btn btn-success";
+			    button.setAttribute("id", "add-now-btn");
+			    button.onclick = function () {
+			        AddNow();
+			        return false;
+			    };
+
+			    setTimeout(
+						  function () {
+						      addFacts.appendChild(button);
+						  }, _baseInterval * (1 * (parseInt(window.startWith) + 1) + parseInt(window.endWith) + 1) * 1000
+						);
+
+			    
+			    
+			}
+			function drawCircle(pos_1_or_2, ordinal, interval)
+			{
+			    setTimeout(
+						  function () {
+						      ctx.fillStyle = window._color[pos_1_or_2];
+						      ctx.beginPath();
+						      ctx.arc(cx[pos_1_or_2][ordinal], cy[pos_1_or_2][ordinal], 10, 0, Math.PI * 2);
+						      ctx.fill();
+						  }, interval * (pos_1_or_2*(window.startWith+1) + ordinal + 1) * 1000
+						);
+			    
+			    
+			}
+			function AddNow()
+			{
+			    timeouts = [];
+			    originX = [], originY = [], targetX = [], targetY = [];
+			    for (var j = 0; j < window.startWith; j++) {
+			        originX[j] = cx[0][j], originY[j] = cy[0][j];
+			        targetX[j] = window.x[0 * (window.startWith - 1) + j] + 50, targetY[j] = window.y[0 * (window.startWith - 1) + j] - 50;
+			        if (j == 0)
+			            timeouts[j] = 1;
+                    else
+			            timeouts[j] = Math.sqrt(Math.pow(targetX[j] - originX[j], 2) + Math.pow(targetY[j] - originY[j], 2)) / _speed + timeouts[j - 1] - 2000;
+			        
+			    }
+			    for (var j = 0; j < window.endWith; j++) {
+			        originX[window.startWith + j] = cx[1][j], originY[window.startWith+j] = cy[1][j];
+			        targetX[window.startWith + j] = window.x[1 * (window.startWith ) + j] + 50, targetY[window.startWith+j] = window.y[1 * (window.startWith ) + j] - 50;
+			        timeouts[window.startWith + j] = Math.sqrt(Math.pow(targetX[window.startWith + j] - originX[window.startWith + j], 2) + Math.pow(targetY[window.startWith + j] - originY[window.startWith + j], 2)) / _speed + timeouts[window.startWith+j - 1];
+
+			    }
+			    moveCircle(0, 0, targetX[0], targetY[0], originX[0], originY[0])
+			    //for (var j = 0; j < window.startWith; j++) {
+			        //var originX = cx[0][j], originY = cy[0][j];
+			        //var targetX = window.x[0 * (window.startWith - 1) + j] + 50, targetY = window.y[0 * (window.startWith - 1) + j] - 50;
+			        
+			        //setTimeout(function () { moveCircle(0, j, targetX[j], targetY[j], originX[j], originY[j]) }, timeouts[j]);
+			    //}
+			}
+			function moveCircle(pos_1_or_2, ordinal, target_X, target_Y, origin_X, origin_Y)
+			{
+			    
+			    var tx = target_X - origin_X,
+                ty = target_Y - origin_Y,
+                dist = Math.sqrt(tx * tx + ty * ty),
+                rad = Math.atan2(ty, tx),
+                angle = rad / Math.PI * 180
+                    ;
+
+			    var velX = (tx / dist) * _speed,
+                    velY = (ty / dist) * _speed;
+
+			    origin_X += velX
+			    origin_Y += velY
+
+			    ctx.clearRect(origin_X - 12, origin_Y - 12, 24, 24);
+			    ctx.fillStyle = window._color[pos_1_or_2];
+			    ctx.beginPath();
+			    ctx.arc(origin_X, origin_Y, 10, 0, Math.PI * 2);
+			    ctx.fill();
+
+			    for (k = 0; k < pos_1_or_2 * window.startWith + ordinal; k++)
+			    {
+			        ctx.fillStyle = window._color[pos_1_or_2 * (Math.floor(k / window.startWith))];
+			        ctx.font = "40px Verdana";
+			        ctx.fillText(k+1,x[k], y[k]);
+			        ctx.beginPath();
+			        ctx.arc(targetX[k], targetY[k], 10, 0, Math.PI * 2);
+			        ctx.fill();
+			    }
+
+			    if (target_X < origin_X)
+			        setTimeout(function () { moveCircle(pos_1_or_2, ordinal, target_X, target_Y, origin_X, origin_Y); }, 1);
+			    else
+			    {
+			        if (pos_1_or_2 * window.startWith + ordinal < 1 * window.startWith + 1 * window.endWith) {
+			            ctx.fillStyle = window._color[pos_1_or_2];
+			            ctx.font = "40px Verdana";
+			            ctx.fillText(pos_1_or_2 * window.startWith + ordinal + 1, x[pos_1_or_2 * window.startWith + ordinal], y[pos_1_or_2 * window.startWith + ordinal]);
+			        }
+			        else {
+			            /*ctx.fillStyle = "LIMEGREEN";
+			            ctx.beginPath();
+			            var radius = 50; // for example
+			            ctx.arc(1170, 60, radius, 0, Math.PI * 2);
+			            ctx.closePath();
+			            ctx.fill();
+			            ctx.fillStyle = "white"; // font color to write the text with
+			            ctx.font = "60px Verdana";
+			            ctx.textBaseline = "top";
+			            ctx.fillText(1 * window.startWith + 1 * window.endWith, 1170 - radius / 4, 60 - radius / 1.5);*/
+                        
+
+			                ctx.font = "80px Verdana";
+			                ctx.fillStyle = "LIMEGREEN";
+			                ctx.fillText(1 * window.startWith + 1 * window.endWith, 1120, 100);
+
+			        
+			            
+			            
+
+			            
+
+			            
+
+			            
+			        }
+			        if (pos_1_or_2 == 0 && ++ordinal < window.startWith) {
+			            
+			            setTimeout(function () { moveCircle(0, ordinal, targetX[ordinal], targetY[ordinal], originX[ordinal], originY[ordinal]) }, timeouts[ordinal]);
+			        }
+			        else if (pos_1_or_2 == 0) {
+
+			            setTimeout(function () { moveCircle(1, 0, targetX[window.startWith], targetY[window.startWith], originX[window.startWith], originY[window.startWith]) }, timeouts[window.startWith]);
+			        }
+			        else if (ordinal < window.endWith) {
+			            setTimeout(function () { moveCircle(1, ordinal + 1, targetX[window.startWith + ordinal + 1], targetY[window.startWith + ordinal + 1], originX[window.startWith + ordinal + 1], originY[window.startWith + ordinal + 1]) }, timeouts[window.startWith + ordinal + 1]);
+			        }
+			    }
+			}
+			
 			function showNumbersSlow()
 			{
-				drawNumbers(window.ctx, 1);
+				drawNumbers(window.ctx, _baseInterval);
 			  
 			}
 			function showNumbers()
@@ -98,7 +352,7 @@
 			}
 			function drawNumbers(ctx, interval)
 			{
-				ctx.clearRect(0,0,444,596);
+				ctx.clearRect(0,0,1220,1030);
 				drawANumber(ctx,interval,"1",x[0],y[0]);
 			  drawANumber(ctx,interval,"2",x[1],y[1]);
 			  drawANumber(ctx,interval,"3",x[2],y[2]);

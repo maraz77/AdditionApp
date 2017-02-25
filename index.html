@@ -145,10 +145,10 @@
 
 			}
 			window.x = [500,490,480,    330,330,340,    185,200,230,    65,85,120,       710,650,600];
-			window.y = [200, 330, 480, 180, 300, 450, 220, 340, 500, 370, 460, 590, 570, 660, 720];
+			window.y = [200, 330, 480, 180, 300, 450, 220, 340, 500, 370, 460, 590, 570, 660, 760];
 			window.timeouts = [];
 			window.originX = [], window.originY = [], window.targetX = [], window.targetY = [];
-			_cx1 = 910, _cx2 = 1030, window._color = [], window._color[0] = "darkcyan", window._color[1] = "crimson"; window.cx = [], window.cy = [], window._baseInterval = 1, window._speed = 1.5;
+			_cx1 = 910, _cx2 = 1030, window._color = [], window._color[0] = "darkcyan", window._color[1] = "crimson"; window.cx = [], window.cy = [], window._baseInterval = .5, window._speed = 2.5;
 			cx[0] = [_cx1, _cx1, _cx1, _cx1, _cx1, _cx1, _cx1, _cx1, _cx1];
 			cx[1] = [_cx2, _cx2, _cx2, _cx2, _cx2, _cx2, _cx2, _cx2, _cx2];
 			cy[0] = [150, 200, 250, 300, 350, 400, 450, 500, 550];
@@ -224,8 +224,10 @@
 						  function () {
 						      ctx.fillStyle = window._color[pos_1_or_2];
 						      ctx.beginPath();
-						      ctx.arc(cx[pos_1_or_2][ordinal], cy[pos_1_or_2][ordinal], 10, 0, Math.PI * 2);
+						      ctx.arc(cx[pos_1_or_2][ordinal], cy[pos_1_or_2][ordinal], 20, 0, Math.PI * 2);
 						      ctx.fill();
+						      writeOnCircle(ordinal + 1, cx[pos_1_or_2][ordinal], cy[pos_1_or_2][ordinal] );
+						      
 						  }, interval * (pos_1_or_2*(window.startWith+1) + ordinal + 1) * 1000
 						);
 			    
@@ -258,6 +260,12 @@
 			        //setTimeout(function () { moveCircle(0, j, targetX[j], targetY[j], originX[j], originY[j]) }, timeouts[j]);
 			    //}
 			}
+			function writeOnCircle(text, posX, posY)
+			{
+			    ctx.fillStyle = "white";
+			    ctx.font = "25px Verdana";
+			    ctx.fillText(text, posX - 10, posY + 10);
+			}
 			function moveCircle(pos_1_or_2, ordinal, target_X, target_Y, origin_X, origin_Y)
 			{
 			    
@@ -274,27 +282,33 @@
 			    origin_X += velX
 			    origin_Y += velY
 
-			    ctx.clearRect(origin_X - 12, origin_Y - 12, 24, 24);
+			    ctx.clearRect(origin_X - 24, origin_Y - 24, 48, 48);
 			    ctx.fillStyle = window._color[pos_1_or_2];
 			    ctx.beginPath();
-			    ctx.arc(origin_X, origin_Y, 10, 0, Math.PI * 2);
+			    ctx.arc(origin_X, origin_Y, 20, 0, Math.PI * 2);
 			    ctx.fill();
+			    writeOnCircle(ordinal + 1, origin_X, origin_Y);
+			    ctx.fillStyle = window._color[pos_1_or_2];
 
 			    for (k = 0; k < pos_1_or_2 * window.startWith + ordinal; k++)
 			    {
-			        ctx.fillStyle = window._color[pos_1_or_2 * (Math.floor(k / window.startWith))];
+			        ctx.beginPath();
+			        ctx.fillStyle = window._color[pos_1_or_2 * (Math.floor(k / window.startWith) > 1 ? 1 : Math.floor(k / window.startWith))];
 			        ctx.font = "40px Verdana";
 			        ctx.fillText(k+1,x[k], y[k]);
 			        ctx.beginPath();
-			        ctx.arc(targetX[k], targetY[k], 10, 0, Math.PI * 2);
+			        ctx.arc(targetX[k], targetY[k], 20, 0, Math.PI * 2);
 			        ctx.fill();
+			        writeOnCircle(k + 1 - (k < window.startWith?0:1) * window.startWith, targetX[k], targetY[k]);
+			        ctx.fillStyle = window._color[pos_1_or_2 * (Math.floor(k / window.startWith) > 1 ? 1 : Math.floor(k / window.startWith))];
 			    }
-
+			    
 			    if (target_X < origin_X)
 			        setTimeout(function () { moveCircle(pos_1_or_2, ordinal, target_X, target_Y, origin_X, origin_Y); }, 1);
 			    else
 			    {
 			        if (pos_1_or_2 * window.startWith + ordinal < 1 * window.startWith + 1 * window.endWith) {
+			            ctx.beginPath();
 			            ctx.fillStyle = window._color[pos_1_or_2];
 			            ctx.font = "40px Verdana";
 			            ctx.fillText(pos_1_or_2 * window.startWith + ordinal + 1, x[pos_1_or_2 * window.startWith + ordinal], y[pos_1_or_2 * window.startWith + ordinal]);
@@ -312,9 +326,9 @@
 			            ctx.fillText(1 * window.startWith + 1 * window.endWith, 1170 - radius / 4, 60 - radius / 1.5);*/
                         
 
-			                ctx.font = "80px Verdana";
-			                ctx.fillStyle = "LIMEGREEN";
-			                ctx.fillText(1 * window.startWith + 1 * window.endWith, 1120, 100);
+			                //ctx.font = "80px Verdana";
+			                //ctx.fillStyle = "LIMEGREEN";
+			                //ctx.fillText(1 * window.startWith + 1 * window.endWith, 1120, 100);
 
 			        
 			            
@@ -334,8 +348,13 @@
 
 			            setTimeout(function () { moveCircle(1, 0, targetX[window.startWith], targetY[window.startWith], originX[window.startWith], originY[window.startWith]) }, timeouts[window.startWith]);
 			        }
-			        else if (ordinal < window.endWith) {
+			        else if (ordinal + 1 < window.endWith) {
 			            setTimeout(function () { moveCircle(1, ordinal + 1, targetX[window.startWith + ordinal + 1], targetY[window.startWith + ordinal + 1], originX[window.startWith + ordinal + 1], originY[window.startWith + ordinal + 1]) }, timeouts[window.startWith + ordinal + 1]);
+			        }
+			        else {
+			            ctx.font = "80px Verdana";
+			            ctx.fillStyle = "LIMEGREEN";
+			            ctx.fillText(1 * window.startWith + 1 * window.endWith, 1120, 100);
 			        }
 			    }
 			}
